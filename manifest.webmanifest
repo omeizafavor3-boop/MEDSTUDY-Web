@@ -1,0 +1,9 @@
+{
+  "name": "MEDSTUDY",
+  "short_name": "MEDSTUDY",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1423",
+  "theme_color": "#101c30",
+  "icons": []
+}
