@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101c30">
+<link rel="manifest" href="manifest.webmanifest">
+<title>MEDSTUDY</title>
+<style>
+:root{--bg:#0b1423;--p:#132238;--p2:#1a2d46;--line:#263c57;--tx:#f4f7fb;--mut:#aab8ca;--g:#16a879}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,Arial}button,input,select{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:235px 1fr}.side{background:#0e1a2c;border-right:1px solid var(--line);padding:22px 15px;position:sticky;top:0;height:100vh}
+.brand{font-size:25px;font-weight:850}.brand span{color:#35d6a3}.tag,.muted{color:var(--mut)}.tag{font-size:11px;margin-bottom:26px}
+nav.sideNav{display:grid;gap:6px}nav button{border:0;background:transparent;color:var(--mut);padding:12px;text-align:left;border-radius:11px}nav button.active,nav button:hover{background:var(--p2);color:white}
+.sideNote{position:absolute;bottom:18px;color:var(--mut);font-size:12px}
+main{padding:26px;max-width:1200px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;gap:12px;margin-bottom:24px}.eyebrow{color:#65d9b2;font-size:12px;letter-spacing:1.3px;font-weight:700}h1{font-size:clamp(26px,4vw,36px);margin:4px 0}h2{font-size:21px;margin:0 0 12px}h3{margin:0 0 8px}.pill{background:#163d38;color:#81e6c5;padding:7px 11px;border-radius:30px;font-size:12px;height:max-content}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:15px}.card,.hero{border:1px solid var(--line);border-radius:18px;padding:19px;background:var(--p)}.hero{grid-column:span 12;background:linear-gradient(120deg,#123d3b,#183451);border-color:#28645c}.hero p{max-width:650px;color:#d0e8e4}.s12{grid-column:span 12}.s6{grid-column:span 6}.s4{grid-column:span 4}
+.btn{border:0;background:var(--g);color:white;padding:10px 15px;border-radius:10px;font-weight:700}.btn.alt{background:var(--p2);border:1px solid var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{flex:1;min-width:110px;padding:13px;border-radius:13px;background:#0f1d30;border:1px solid var(--line)}.stat strong{display:block;font-size:24px}
+.courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:11px}.course,.topic{background:#102039;border:1px solid var(--line);border-radius:13px;padding:15px}.course{cursor:pointer}.course:hover{border-color:#399d83}.code{color:#6de0b8;font-size:12px;font-weight:800}.course p,.topic p{color:var(--mut);font-size:13px;margin:5px 0}
+.head{display:flex;justify-content:space-between;align-items:center;margin:23px 0 12px}.topic{margin:9px 0}.answers{display:grid;gap:8px}.answer{background:#102039;color:white;border:1px solid var(--line);padding:12px;border-radius:10px;text-align:left;width:100%;transition:.15s}.answer.selected{border:2px solid #55d6ad;background:#17463e;box-shadow:0 0 0 2px #16a87933}.answer.correct{background:#123c34;border:2px solid var(--g)}.answer.wrong{background:#442b34;border:2px solid #ff7777}.feedback{padding:13px;background:#102039;border-radius:11px;margin-top:12px;color:var(--mut)}.feedback strong{color:white}
+input[type=file],select,input[type=number]{width:100%;padding:12px;background:#0f1d30;color:white;border:1px solid var(--line);border-radius:10px}
+.field{margin:12px 0}.field label{display:block;margin-bottom:6px;color:#d7e2ef;font-size:13px}.progress{height:8px;background:#263a52;border-radius:20px;margin-top:9px;overflow:hidden}.progress span{display:block;height:100%;background:var(--g)}
+.mobile{display:none}.foot{color:var(--mut);font-size:12px;margin-top:28px}
+@media(max-width:800px){.app{display:block}.side{display:none}main{padding:19px 14px 85px}.s6,.s4{grid-column:span 12}.mobile{display:flex;position:fixed;bottom:0;left:0;right:0;justify-content:space-around;background:#0e1a2c;border-top:1px solid var(--line);z-index:4}.mobile button{font-size:11px;text-align:center;padding:8px 5px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+ <div class="brand">MED<span>STUDY</span></div><div class="tag">YOUR MEDICAL STUDIES COMPANION</div>
+ <nav class="sideNav" id="nav">
+  <button class="active" data-page="home">⌂ &nbsp; Dashboard</button><button data-page="courses">▦ &nbsp; My Courses</button><button data-page="learn">▤ &nbsp; Learning Centre</button><button data-page="exam">◷ &nbsp; Exam Simulator</button><button data-page="pdf">▧ &nbsp; AI PDF Tutor</button><button data-page="lab">⚗ &nbsp; Laboratory</button><button data-page="progress">▥ &nbsp; My Progress</button>
+ </nav><div class="sideNote">100 Level • CUSTECH<br>Expandable through 600L</div>
+</aside>
+<main>
+ <header class="top"><div><div class="eyebrow">CUSTECH • MEDICINE</div><h1 id="title">Welcome to MEDSTUDY</h1><div class="muted" id="sub">Your learning space, organised in one place.</div></div><span class="pill">100 LEVEL</span></header>
+ <section id="content"></section><div class="foot">MEDSTUDY • Progress is saved in this browser on this device.</div>
+</main>
+</div>
+<nav class="mobile" id="mobile"><button data-page="home" class="active">⌂<br>Home</button><button data-page="courses">▦<br>Courses</button><button data-page="exam">◷<br>Exam</button><button data-page="pdf">▧<br>PDF</button><button data-page="progress">▥<br>Progress</button></nav>
+<script>
+const C=[
+ ["MTH131","Elementary Mathematics I","Sets, algebra, functions, trigonometry and calculus"],
+ ["CHM131","General Chemistry I","Atomic structure, bonding, periodicity and stoichiometry"],
+ ["BIO131","General Biology I","Cells, biomolecules, genetics and classification"],
+ ["PHY131","General Physics I","Measurement, mechanics, waves and thermal physics"],
+ ["CSC131","Introduction to Computer Science","Computer systems, data and algorithms"],
+ ["GST131","Communication in English","Grammar, comprehension, writing and oral communication"]
+];
+const T={
+ MTH131:["Elementary set theory","Number systems and algebra","Functions and graphs","Trigonometry","Introduction to calculus"],
+ CHM131:["Atomic structure","Electronic configuration","Periodic properties","Chemical bonding","Stoichiometry"],
+ BIO131:["Cell structure and organisation","Biological molecules","Cell division","Genetics","Classification of living things"],
+ PHY131:["Space, time and measurement","Vectors and scalars","Motion and mechanics","Work, energy and power","Waves and thermal physics"],
+ CSC131:["Computer fundamentals","Hardware and software","Data representation","Algorithms and flowcharts","Introduction to programming"],
+ GST131:["Grammar and usage","Comprehension","Essay writing","Oral communication","Study skills"]
+};
+// Each question includes its course, topic, options, correct option index and a full explanation.
+const Q=[
+ {id:"PHY-001",c:"PHY131",t:"Space, time and measurement",q:"Which is an SI base quantity?",a:["Force","Length","Energy","Pressure"],k:1,e:"Length is one of the seven SI base quantities. Its SI unit is the metre (m). Force, energy and pressure are derived quantities because their units are formed from combinations of base units."},
+ {id:"BIO-001",c:"BIO131",t:"Cell structure and organisation",q:"Which organelle is a major site of aerobic ATP production?",a:["Ribosome","Golgi apparatus","Mitochondrion","Lysosome"],k:2,e:"Mitochondria are the major sites of aerobic respiration in eukaryotic cells. Reactions associated with the mitochondrion transfer energy into ATP, which cells use to power many activities."},
+ {id:"CHM-001",c:"CHM131",t:"Atomic structure",q:"The atomic number of an element equals the number of:",a:["Neutrons","Protons","Protons plus neutrons","Electron shells"],k:1,e:"The atomic number is the number of protons in the nucleus. It identifies the element. In a neutral atom, the number of electrons equals the number of protons, but electrons are not what defines the atomic number."},
+ {id:"MTH-001",c:"MTH131",t:"Elementary set theory",q:"If A={1,2,3} and B={3,4}, what is A ∩ B?",a:["{1,2,3,4}","{1,2}","{3}","{4}"],k:2,e:"The intersection A ∩ B contains only elements that belong to both sets. The only shared element is 3, so A ∩ B = {3}. The union, by contrast, would contain all distinct elements from both sets."},
+ {id:"CSC-001",c:"CSC131",t:"Computer fundamentals",q:"Which component performs arithmetic and logical operations?",a:["Monitor","ALU","Keyboard","Printer"],k:1,e:"The Arithmetic Logic Unit (ALU) is a component of the CPU. It performs arithmetic operations, such as addition, and logical comparisons, such as testing whether two values are equal."},
+ {id:"GST-001",c:"GST131",t:"Grammar and usage",q:"Choose the sentence with correct subject–verb agreement.",a:["The students studies daily.","The student study daily.","The students study daily.","The students is studying daily."],k:2,e:"The subject students is plural, so it takes the plural verb study. In the simple present tense, a singular third-person subject usually takes a verb ending in -s, while a plural subject does not."}
+];
+let P="home",course=null,quiz=[],qi=0,score=0,chosen=null,checked=false,activeTopic="ALL",lastQuizIds=[];
+let S;
+try{S=JSON.parse(localStorage.getItem("medstudy")||'{"attempts":0,"correct":0,"topics":[]}')}catch(e){S={attempts:0,correct:0,topics:[]}}
+function save(){localStorage.setItem("medstudy",JSON.stringify(S))}
+function shuffle(arr){let a=arr.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function cards(){return `<div class="courses">${C.map(c=>`<article class="course" onclick="openCourse('${c[0]}')"><div class="code">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></article>`).join("")}</div>`}
+function home(){return `<div class="grid"><div class="hero"><div class="eyebrow">YOUR STUDY JOURNEY STARTS HERE</div><h2>Learn. Practise. Improve.</h2><p>Keep your 100 Level courses, topic learning, practice questions and revision progress together. The curriculum can expand as you advance.</p><button class="btn" onclick="go('courses')">Explore my courses</button></div><div class="card s12"><div class="stats"><div class="stat"><strong>${S.attempts}</strong><small>Questions attempted</small></div><div class="stat"><strong>${S.correct}</strong><small>Correct answers</small></div><div class="stat"><strong>${S.topics.length}</strong><small>Topics studied</small></div><div class="stat"><strong>6</strong><small>100L courses</small></div></div></div><div class="s12"><div class="head"><h2>Your courses</h2><button class="btn alt" onclick="go('courses')">View all</button></div>${cards()}</div><div class="card s6"><h3>Learning Centre</h3><p class="muted">Open a course and study topic by topic.</p><button class="btn alt" onclick="go('learn')">Open learning</button></div><div class="card s6"><h3>Quick practice</h3><p class="muted">Try a mixed-subject starter quiz.</p><button class="btn" onclick="go('exam')">Set up quiz</button></div></div>`}
+function courses(){return `<div class="head"><h2>100 Level courses</h2><span class="pill">6 subjects</span></div>${cards()}`}
+function openCourse(code){course=code;go("learn")}
+function learn(){if(!course)return `<h2>Choose a course</h2>${cards()}`;let c=C.find(x=>x[0]===course);return `<button class="btn alt" onclick="course=null;draw()">← All courses</button><div class="head"><div><div class="code">${c[0]}</div><h2>${c[1]}</h2></div></div><div class="card"><p class="muted">Starter topic outline. Confirm and expand these areas using your official CUSTECH course outline and lecture notes.</p>${T[course].map((t,i)=>`<div class="topic"><b>${i+1}. ${t}</b><p>Detailed notes, examples and topic questions can be added from your course materials.</p><button class="btn alt" onclick="mark('${course}:${t}')">${S.topics.includes(course+':'+t)?"Studied ✓":"Mark as studied"}</button><button class="btn" style="margin-left:6px" onclick="start('${course}','${t}')">Practise topic</button></div>`).join("")}</div>`}
+function mark(x){if(!S.topics.includes(x))S.topics.push(x);save();draw()}
+function exam(){return `<div class="grid"><div class="card s6"><h2>Quiz setup</h2><p class="muted">Choose a subject, topic and question count before starting. Questions and answer choices are shuffled each time.</p>
+<div class="field"><label for="subject">Subject</label><select id="subject" onchange="updateTopics()"><option value="ALL">Mixed subjects</option>${C.map(c=>`<option value="${c[0]}">${c[0]} — ${c[1]}</option>`).join("")}</select></div>
+<div class="field"><label for="topic">Topic</label><select id="topic"><option value="ALL">All available topics</option></select></div>
+<div class="field"><label for="count">Number of questions</label><select id="count"><option>5</option><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option></select></div>
+<div class="field"><label for="difficulty">Difficulty</label><select id="difficulty"><option value="Mixed">Mixed</option><option value="Easy">Easy</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option></select><small class="muted">Difficulty labels will become fully active as the question bank is expanded.</small></div>
+<button class="btn" onclick="startFromSetup()">Start quiz</button></div>
+<div class="card s6"><h3>Available question bank</h3><strong style="font-size:30px">${Q.length}</strong><p class="muted">There are currently ${Q.length} starter questions. The quiz will never repeat a question within one attempt, and the available number will be shown before you start.</p><div class="feedback">Detailed explanations appear after every submitted answer, whether your answer is right or wrong.</div></div></div><div id="quiz"></div>`}
+function updateTopics(){let s=document.getElementById("subject"),t=document.getElementById("topic");if(!s||!t)return;let list=s.value==="ALL"?[...new Set(Q.map(q=>q.t))]:[...new Set(Q.filter(q=>q.c===s.value).map(q=>q.t))];t.innerHTML='<option value="ALL">All available topics</option>'+list.map(x=>`<option value="${x}">${x}</option>`).join("")}
+function startFromSetup(){let c=document.getElementById("subject").value,t=document.getElementById("topic").value,n=Number(document.getElementById("count").value);start(c,t,n)}
+function start(code,topic="ALL",count=5){let pool=Q.filter(q=>(code==="ALL"||q.c===code)&&(topic==="ALL"||q.t===topic));if(!pool.length){alert("There are no starter questions for this selection yet. Try another subject or topic.");return}quiz=shuffle(pool).slice(0,Math.min(count,pool.length)).map(q=>{let indexes=shuffle(q.a.map((_,i)=>i));return {...q,a:indexes.map(i=>q.a[i]),k:indexes.indexOf(q.k)}});qi=0;score=0;chosen=null;checked=false;P="exam";draw();question();if(count>pool.length)setTimeout(()=>{let el=document.getElementById("quiz");if(el)el.insertAdjacentHTML("afterbegin",`<div class="feedback">This selection has only ${pool.length} available question(s), so the quiz uses all of them without repeating any.</div>`)},0)}
+function question(){let el=document.getElementById("quiz");if(!el)return;if(qi>=quiz.length){el.innerHTML=`<div class="card" style="margin-top:16px"><h2>Practice complete</h2><h3>Score: ${score}/${quiz.length}</h3><p class="muted">You answered ${quiz.length} question(s). Start another shuffled attempt to practise again.</p><button class="btn" onclick="go('exam')">Back to simulator</button></div>`;return}let q=quiz[qi];el.innerHTML=`<div class="card" style="margin-top:16px"><div class="muted">Question ${qi+1} of ${quiz.length} • ${q.c}</div><h3 style="margin:16px 0">${q.q}</h3><div class="answers">${q.a.map((a,i)=>`<button type="button" class="answer ${chosen===i&&!checked?'selected':''} ${checked?(i===q.k?'correct':i===chosen?'wrong':''):''}" ${checked?'disabled':''} onclick="chooseAnswer(${i})">${"ABCD"[i]}. ${a}</button>`).join("")}</div>${checked?`<div class="feedback"><strong>${chosen===q.k?"Correct!":"Not quite."}</strong><br>Correct answer: ${"ABCD"[q.k]}. ${q.a[q.k]}<br><br><strong>Explanation</strong><br>${q.e}</div><button class="btn" style="margin-top:12px" onclick="nextQuestion()">${qi===quiz.length-1?"Finish quiz":"Next question"}</button>`:`<button class="btn" style="margin-top:12px" ${chosen===null?'disabled':''} onclick="check()">Submit answer</button>`}</div>`}
+function chooseAnswer(i){if(checked)return;chosen=i;question()}
+function check(){if(chosen===null||checked)return;checked=true;S.attempts++;if(chosen===quiz[qi].k){score++;S.correct++}save();question()}
+function nextQuestion(){qi++;chosen=null;checked=false;question()}
+function lab(){return `<div class="card"><h2>Laboratory practicals</h2>${[["BIO Laboratory","Microscopy, specimens, biological drawings and observations"],["CHM Laboratory","Apparatus, measurements, titration and qualitative analysis"],["PHY Laboratory","Measurements, apparatus, graphs, errors and experiments"]].map(x=>`<div class="topic"><h3>${x[0]}</h3><p>${x[1]}</p><p>Practical guides and question sets should be based on your actual lab manual and lecturer instructions.</p></div>`).join("")}</div>`}
+function pdf(){return `<div class="grid"><div class="card s6"><div class="eyebrow">PDF STUDY WORKSPACE</div><h2>Upload lecture material</h2><p class="muted">Choose a PDF lecture note or course material. This version can select and remember the file name, but AI reading and question generation still need a secure AI service connection.</p><input type="file" accept="application/pdf" id="file"><div id="status" class="feedback">No PDF selected.</div></div><div class="card s6"><h3>PDF tutor connection</h3><p class="muted">The next backend upgrade will extract PDF text, generate questions from the uploaded material, provide detailed explanations and reference the relevant page or section.</p><div class="feedback">Your private AI key must not be placed inside this public website's code.</div></div></div>`}
+function progress(){let pct=S.attempts?Math.round(100*S.correct/S.attempts):0;return `<div class="card"><h2>My Progress</h2><div class="stats"><div class="stat"><strong>${S.attempts}</strong><small>Attempted</small></div><div class="stat"><strong>${S.correct}</strong><small>Correct</small></div><div class="stat"><strong>${pct}%</strong><small>Accuracy</small></div><div class="stat"><strong>${S.topics.length}</strong><small>Topics studied</small></div></div><h3 style="margin-top:20px">Quiz accuracy</h3><div class="progress"><span style="width:${pct}%"></span></div><p class="muted">Saved in this browser on this device.</p><button class="btn alt" onclick="if(confirm('Reset saved progress?')){S={attempts:0,correct:0,topics:[]};save();draw()}">Reset progress</button></div>`}
+function draw(){let data={home:["Welcome to MEDSTUDY","Your learning space, organised in one place.",home],courses:["My Courses","Your current 100 Level subjects.",courses],learn:["Learning Centre","Learn one topic at a time.",learn],exam:["Exam Simulator","Practise and review your answers.",exam],pdf:["AI PDF Tutor","Prepare your lecture materials for study.",pdf],lab:["Laboratory","BIO, CHM and PHY practical study.",lab],progress:["My Progress","Track your study activity.",progress]}[P];document.getElementById("title").textContent=data[0];document.getElementById("sub").textContent=data[1];document.getElementById("content").innerHTML=data[2]();document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===P));let f=document.getElementById("file");if(f)f.onchange=()=>document.getElementById("status").textContent=f.files[0]?"Selected: "+f.files[0].name+". AI analysis will be available after the secure AI connection is added.":"No PDF selected."}
+function go(p){P=p;if(p!=="learn")course=null;draw();if(p==="exam")updateTopics()}
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>go(b.dataset.page));draw();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
